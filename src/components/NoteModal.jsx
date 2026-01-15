@@ -42,43 +42,59 @@ export default function NoteModal() {
   /* ---------- Core logic ---------- */
 
   const handleAddNote = async () => {
-    if (!title.trim()) return alert('Please enter a title')
-    if (!smartWalletPubkey) return alert('Connect wallet first')
-
+    const noteTitle = title.trim()
+    const noteMessage = message.trim()
+  
+    if (!noteTitle) {
+      alert('Please enter a title')
+      return
+    }
+  
+    if (!smartWalletPubkey) {
+      alert('Connect wallet first')
+      return
+    }
+  
     try {
       setIsSubmitting(true)
-
-      const ix = await program.methods
-        .createEntry(title.trim(), message.trim())
-        .instruction()
-
-      const signature = await signAndSendTransaction({
-        instructions: [ix],
-        transactionOptions: { commitment: 'confirmed' },
+  
+      const signature = await signAndSendTransaction(async () => {
+        const ix = await program.methods
+          .createEntry(noteTitle, noteMessage)
+          .instruction()
+  
+        return {
+          instructions: [ix],
+          transactionOptions: {
+            commitment: 'confirmed',
+          },
+        }
       })
+  
       alert(
         `Note added successfully!
-      
-      Transaction signature:
-      ${signature}
-      
-      View on Solana Explorer:
-      https://explorer.solana.com/tx/${signature}?cluster=devnet`
+  
+  Transaction signature:
+  ${signature}
+  
+  View on Solana Explorer:
+  https://explorer.solana.com/tx/${signature}?cluster=devnet`
       )
-      
-
-      // update UI instantly
+  
+      // ✅ instant UI update
       setNotes(prev => [
-        { title, message, createdAt: Date.now() },
+        {
+          title: noteTitle,
+          message: noteMessage,
+          createdAt: Date.now(),
+        },
         ...prev,
       ])
-
-      
+  
+      // cleanup
       setIsOpen(false)
       setTitle('')
       setMessage('')
-
-      
     } catch (err) {
       console.error(err)
       alert('Transaction failed')
@@ -86,6 +102,7 @@ export default function NoteModal() {
       setIsSubmitting(false)
     }
   }
+  
 
   return (
     <div>
