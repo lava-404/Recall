@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import WalletAdapterButton from './WalletAdapterButton';
-import { WalletDisconnect } from './wallet-disconnect';
-import { useSolana } from './solana/use-solana';
-import { WalletDropdown } from './wallet-dropdown';
 import Navbar from '@/components/Navbar'
-import { useNotes } from '@/state/notes-store'
+
 import NotePreview from './NotePreview';
 import { useOnchainNotes } from '@/hooks/usOnchainNotes'
 

@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { Anchor } from "../target/types/anchor";
+import { Anchor } from "..target/types/anchor";
 import { PublicKey } from "@solana/web3.js"
 describe("anchor", () => {
   // Configure the client to use the local cluster.
