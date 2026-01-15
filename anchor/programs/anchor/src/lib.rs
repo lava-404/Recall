@@ -11,6 +11,8 @@ pub mod anchor {
         note.owner = ctx.accounts.signer.key();
         note.title = title;
         note.message = message;
+        msg!("NOTE PDA {:?}", ctx.accounts.note_account.key());
+        msg!("SIGNER {:?}", ctx.accounts.signer.key());
 
         Ok(())
     }
