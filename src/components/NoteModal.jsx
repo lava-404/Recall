@@ -7,6 +7,7 @@ import { AnchorProvider, Program } from '@coral-xyz/anchor'
 import { useWallet } from '@lazorkit/wallet'
 import { useNotes } from '@/state/notes-store'
 import { ConnectButton } from './ConnectButton'
+import { AppExplorerLink } from './app-explorer-link'
 import idl from '@/idl/anchor.json'
 
 export default function NoteModal() {
@@ -56,8 +57,15 @@ export default function NoteModal() {
         transactionOptions: { commitment: 'confirmed' },
       })
       alert(
-        `Note added successfully!\n\nTransaction signature:\n${signature} ${<AppExplorerLink transaction={signature} />}`
+        `Note added successfully!
+      
+      Transaction signature:
+      ${signature}
+      
+      View on Solana Explorer:
+      https://explorer.solana.com/tx/${signature}?cluster=devnet`
       )
+      
 
       // update UI instantly
       setNotes(prev => [
