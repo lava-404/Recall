@@ -23,7 +23,7 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "src/components/NoteModal.jsx", "src/components/Navbar.jsx"],
-  "exclude": ["node_modules","../anchor",
-    "**/*.spec.ts",
-    "**/*.test.ts"]
+  "exclude": ["node_modules","anchor",
+    "**/*.test.ts",
+  "**/*.spec.ts"]
 }
